@@ -12,6 +12,8 @@ type userController struct {
 type UserController interface {
 	CreateUser(user *model.User) error
 	GetUsers() ([]*model.User, error)
+	GetUser(id uint) (*model.User, error)
+	UpdateUser(user *model.User, id uint) (*model.User, error)
 }
 
 func NewUserController(us service.UserService) UserController {
@@ -24,10 +26,28 @@ func (userController *userController) CreateUser(user *model.User) error {
 }
 
 func (userController *userController) GetUsers() ([]*model.User, error) {
-	u := []*model.User{}
-	us, err := userController.userService.Get(u)
+	user := []*model.User{}
+	u, err := userController.userService.Get(user)
 	if err != nil {
 		return nil, err
 	}
-	return us, nil
+	return u, nil
+}
+
+func (userController *userController) GetUser(id uint) (*model.User, error) {
+
+	u, err := userController.userService.GetById(id)
+	if err != nil {
+		return nil, err
+	}
+	return u, nil
+}
+
+func (userController *userController) UpdateUser(user *model.User, id uint) (*model.User, error) {
+	user.ID = id
+	u, err := userController.userService.Update(user)
+	if err != nil {
+		return nil, err
+	}
+	return u, nil
 }

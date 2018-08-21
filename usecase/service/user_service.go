@@ -14,20 +14,38 @@ type userService struct {
 type UserService interface {
 	Create(u *model.User) error
 	Get(u []*model.User) ([]*model.User, error)
+	GetById(id uint) (*model.User, error)
+	Update(u *model.User) (*model.User, error)
 }
 
 func NewUserService(repo repository.UserRepository, pre presenter.UserPresenter) UserService {
 	return &userService{repo, pre}
 }
 
-func (userService *userService) Create(u *model.User) error {
-	return userService.UserRepository.Store(u)
+func (userService *userService) Create(user *model.User) error {
+	return userService.UserRepository.Store(user)
 }
 
-func (userService *userService) Get(u []*model.User) ([]*model.User, error) {
-	us, err := userService.UserRepository.FindAll(u)
+func (userService *userService) Get(users []*model.User) ([]*model.User, error) {
+	u, err := userService.UserRepository.FindAll(users)
 	if err != nil {
 		return nil, err
 	}
-	return userService.UserPresenter.ResponseUsers(us), nil
+	return userService.UserPresenter.ResponseUsers(u), nil
+}
+
+func (userService *userService) GetById(id uint) (*model.User, error) {
+	u, err := userService.UserRepository.FetchById(id)
+	if err != nil {
+		return nil, err
+	}
+	return u, nil
+}
+
+func (userService *userService) Update(user *model.User) (*model.User, error) {
+	u, err := userService.UserRepository.UpdateUser(user)
+	if err != nil {
+		return nil, err
+	}
+	return u, nil
 }

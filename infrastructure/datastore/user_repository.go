@@ -14,6 +14,8 @@ type userRepository struct {
 type UserRepository interface {
 	Store(user *model.User) error
 	FindAll(users []*model.User) ([]*model.User, error)
+	FetchById(id uint) (*model.User, error)
+	UpdateUser(user *model.User) (*model.User, error)
 }
 
 func NewUserRepository(db *gorm.DB) UserRepository {
@@ -33,4 +35,23 @@ func (userRepository *userRepository) FindAll(users []*model.User) ([]*model.Use
 	}
 
 	return users, nil
+}
+
+func (userRepository *userRepository) FetchById(id uint) (*model.User, error) {
+	user := &model.User{}
+	err := userRepository.db.First(&user, id).Error
+	if err != nil {
+		return nil, fmt.Errorf("sql error", err)
+	}
+
+	return user, nil
+}
+
+func (userRepository *userRepository) UpdateUser(user *model.User) (*model.User, error) {
+	err := userRepository.db.Save(&user).Error
+	if err != nil {
+		return nil, fmt.Errorf("sql error", err)
+	}
+
+	return user, nil
 }
