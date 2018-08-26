@@ -2,14 +2,12 @@ package handler
 
 import (
 	"context"
-
 	"net/http"
-
 	"strconv"
 
 	"github.com/labstack/echo"
-	"github.com/yoshinorihisakawa/sample-api-hoop/domain/model"
-	"github.com/yoshinorihisakawa/sample-api-hoop/interface/controllers"
+	"github.com/yoshinorihisakawa/api-taskmanagement/domain/model"
+	"github.com/yoshinorihisakawa/api-taskmanagement/interface/controllers"
 )
 
 type userHandler struct {

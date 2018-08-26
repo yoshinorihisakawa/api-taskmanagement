@@ -5,11 +5,11 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"github.com/yoshinorihisakawa/sample-api-hoop/conf"
-	"github.com/yoshinorihisakawa/sample-api-hoop/infrastructure/api/router"
-	"github.com/yoshinorihisakawa/sample-api-hoop/infrastructure/api/validater"
-	"github.com/yoshinorihisakawa/sample-api-hoop/infrastructure/datastore"
-	"github.com/yoshinorihisakawa/sample-api-hoop/registry"
+	"github.com/yoshinorihisakawa/api-taskmanagement/conf"
+	"github.com/yoshinorihisakawa/api-taskmanagement/infrastructure/api/router"
+	"github.com/yoshinorihisakawa/api-taskmanagement/infrastructure/api/validater"
+	"github.com/yoshinorihisakawa/api-taskmanagement/infrastructure/datastore"
+	"github.com/yoshinorihisakawa/api-taskmanagement/registry"
 	"gopkg.in/go-playground/validator.v9"
 )
 

@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/jinzhu/gorm"
-	"github.com/yoshinorihisakawa/sample-api-hoop/domain/model"
+	"github.com/yoshinorihisakawa/api-taskmanagement/domain/model"
 )
 
 type userRepository struct {

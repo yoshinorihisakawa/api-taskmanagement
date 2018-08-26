@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"github.com/yoshinorihisakawa/sample-api-hoop/domain/model"
-	"github.com/yoshinorihisakawa/sample-api-hoop/usecase/service"
+	"github.com/yoshinorihisakawa/api-taskmanagement/domain/model"
+	"github.com/yoshinorihisakawa/api-taskmanagement/usecase/service"
 )
 
 type userController struct {

@@ -1,7 +1,7 @@
 package presenters
 
 import (
-	"github.com/yoshinorihisakawa/sample-api-hoop/domain/model"
+	"github.com/yoshinorihisakawa/api-taskmanagement/domain/model"
 )
 
 type userPresenter struct {

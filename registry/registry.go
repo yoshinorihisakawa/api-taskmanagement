@@ -2,13 +2,13 @@ package registry
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/yoshinorihisakawa/sample-api-hoop/infrastructure/api/handler"
-	"github.com/yoshinorihisakawa/sample-api-hoop/infrastructure/datastore"
-	"github.com/yoshinorihisakawa/sample-api-hoop/interface/controllers"
-	"github.com/yoshinorihisakawa/sample-api-hoop/interface/presenters"
-	"github.com/yoshinorihisakawa/sample-api-hoop/usecase/presenter"
-	"github.com/yoshinorihisakawa/sample-api-hoop/usecase/repository"
-	"github.com/yoshinorihisakawa/sample-api-hoop/usecase/service"
+	"github.com/yoshinorihisakawa/api-taskmanagement/infrastructure/api/handler"
+	"github.com/yoshinorihisakawa/api-taskmanagement/infrastructure/datastore"
+	"github.com/yoshinorihisakawa/api-taskmanagement/interface/controllers"
+	"github.com/yoshinorihisakawa/api-taskmanagement/interface/presenters"
+	"github.com/yoshinorihisakawa/api-taskmanagement/usecase/presenter"
+	"github.com/yoshinorihisakawa/api-taskmanagement/usecase/repository"
+	"github.com/yoshinorihisakawa/api-taskmanagement/usecase/service"
 )
 
 type interactor struct {

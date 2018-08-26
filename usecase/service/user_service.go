@@ -1,9 +1,9 @@
 package service
 
 import (
-	"github.com/yoshinorihisakawa/sample-api-hoop/domain/model"
-	"github.com/yoshinorihisakawa/sample-api-hoop/usecase/presenter"
-	"github.com/yoshinorihisakawa/sample-api-hoop/usecase/repository"
+	"github.com/yoshinorihisakawa/api-taskmanagement/domain/model"
+	"github.com/yoshinorihisakawa/api-taskmanagement/usecase/presenter"
+	"github.com/yoshinorihisakawa/api-taskmanagement/usecase/repository"
 )
 
 type userService struct {

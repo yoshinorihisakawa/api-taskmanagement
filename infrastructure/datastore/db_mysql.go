@@ -5,7 +5,7 @@ import (
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"github.com/yoshinorihisakawa/sample-api-hoop/conf"
+	"github.com/yoshinorihisakawa/api-taskmanagement/conf"
 )
 
 func NewMySqlDB() *gorm.DB {
