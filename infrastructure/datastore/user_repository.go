@@ -14,8 +14,9 @@ type userRepository struct {
 type UserRepository interface {
 	Store(user *model.User) error
 	FindAll(users []*model.User) ([]*model.User, error)
-	FetchById(id uint) (*model.User, error)
+	FindByID(id uint) (*model.User, error)
 	UpdateUser(user *model.User) (*model.User, error)
+	FindAllByID(id []*int64) ([]*model.User, error)
 }
 
 func NewUserRepository(db *gorm.DB) UserRepository {
@@ -23,7 +24,7 @@ func NewUserRepository(db *gorm.DB) UserRepository {
 }
 
 func (userRepository *userRepository) Store(user *model.User) error {
-	return userRepository.db.Save(user).Error
+	return userRepository.db.Omit("updated_at").Save(user).Error
 
 }
 
@@ -37,7 +38,7 @@ func (userRepository *userRepository) FindAll(users []*model.User) ([]*model.Use
 	return users, nil
 }
 
-func (userRepository *userRepository) FetchById(id uint) (*model.User, error) {
+func (userRepository *userRepository) FindByID(id uint) (*model.User, error) {
 	user := &model.User{}
 	err := userRepository.db.First(&user, id).Error
 	if err != nil {
@@ -54,4 +55,15 @@ func (userRepository *userRepository) UpdateUser(user *model.User) (*model.User,
 	}
 
 	return user, nil
+}
+
+func (userRepository *userRepository) FindAllByID(id []*int64) ([]*model.User, error) {
+	users := []*model.User{}
+	fmt.Println(&id[0])
+	err := userRepository.db.Where("id in (?)", id).Find(&users).Error
+	if err != nil {
+		return nil, fmt.Errorf("sql error", err)
+	}
+
+	return users, nil
 }
