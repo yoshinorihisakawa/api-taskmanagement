@@ -25,7 +25,6 @@ func NewUserRepository(db *gorm.DB) UserRepository {
 
 func (userRepository *userRepository) Store(user *model.User) error {
 	return userRepository.db.Omit("updated_at").Save(user).Error
-
 }
 
 func (userRepository *userRepository) FindAll(users []*model.User) ([]*model.User, error) {
@@ -59,7 +58,6 @@ func (userRepository *userRepository) UpdateUser(user *model.User) (*model.User,
 
 func (userRepository *userRepository) FindAllByID(id []*int64) ([]*model.User, error) {
 	users := []*model.User{}
-	fmt.Println(&id[0])
 	err := userRepository.db.Where("id in (?)", id).Find(&users).Error
 	if err != nil {
 		return nil, fmt.Errorf("sql error", err)

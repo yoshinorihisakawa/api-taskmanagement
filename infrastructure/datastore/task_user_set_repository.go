@@ -14,6 +14,7 @@ type taskUserSetRepository struct {
 type TaskUserSetRepository interface {
 	FindByID(id uint) (*model.TaskUserSet, error)
 	FindAllIDsByID(id uint) ([]*model.TaskUserSet, error)
+	Store(tus *model.TaskUserSet) error
 }
 
 func NewTaskUserSetRepository(db *gorm.DB) TaskUserSetRepository {
@@ -37,4 +38,8 @@ func (taskUserSetRepository *taskUserSetRepository) FindAllIDsByID(id uint) ([]*
 		return nil, fmt.Errorf("sql error", err)
 	}
 	return tu, nil
+}
+
+func (taskUserSetRepository *taskUserSetRepository) Store(tus *model.TaskUserSet) error {
+	return taskUserSetRepository.db.Omit("updated_at").Save(tus).Error
 }

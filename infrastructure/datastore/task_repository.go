@@ -13,6 +13,7 @@ type taskRepository struct {
 
 type TaskRepository interface {
 	FindByID(id uint) (*model.Task, error)
+	Store(task *model.Task) (*model.Task, error)
 }
 
 func NewTaskRepository(db *gorm.DB) TaskRepository {
@@ -28,4 +29,19 @@ func (taskRepository *taskRepository) FindByID(id uint) (*model.Task, error) {
 	}
 
 	return task, nil
+}
+
+func (taskRepository *taskRepository) Store(task *model.Task) (*model.Task, error) {
+	// TODO:トランザクション開始
+
+	err := taskRepository.db.Omit("updated_at").Save(task).Error
+	if err != nil {
+		return nil, fmt.Errorf("sql error", err)
+	}
+
+	t := &model.Task{}
+	if err := taskRepository.db.Last(&t).Error; err != nil {
+		return nil, fmt.Errorf("sql error", err)
+	}
+	return t, nil
 }

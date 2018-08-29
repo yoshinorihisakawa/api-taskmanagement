@@ -13,3 +13,6 @@ type User struct {
 	UpdatedAt   *time.Time `json:"-"`
 	DeletedAt   *time.Time `json:"-"`
 }
+type UserID struct {
+	ID uint `json:"id" validate:"required"`
+}

@@ -16,6 +16,7 @@ type taskUserSetService struct {
 
 type TaskUserSetService interface {
 	GetTaskUserSet(id uint) (*model.TaskUserSetResponse, error)
+	CreateTaskUserSet(tus *model.TaskUserSetRequest) error
 }
 
 func NewTaskUsetSetService(
@@ -73,4 +74,35 @@ func (taskUserSetService *taskUserSetService) GetTaskUserSet(id uint) (*model.Ta
 
 	// presenterでレスポンスように加工
 	return taskUserSetService.TaskUserSetPresenter.ResponseTaskUserSet(task, sendUser, receiveUsers)
+}
+
+func (taskUserSetService *taskUserSetService) CreateTaskUserSet(tusr *model.TaskUserSetRequest) error {
+
+	// TODO:トランザクション開始
+	// FIXME:存在しないUserIdだった時にinsertしてしまう。
+	// task登録モデルを用意
+	task := &model.Task{
+		TaskName: tusr.TaskName,
+	}
+
+	// taskを登録しtaskのIDを取得
+	task, err := taskUserSetService.TaskRepository.Store(task)
+	if err != nil {
+		return err
+	}
+
+	// 数分ループで回す
+	for i := 0; i < len(tusr.ReceiveUser); i++ {
+		tus := &model.TaskUserSet{
+			TaskID:        task.ID,
+			SendUserID:    tusr.SendUser.ID,
+			ReceiveUserID: tusr.ReceiveUser[i].ID,
+		}
+		err := taskUserSetService.TaskUserSetRepository.Store(tus)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

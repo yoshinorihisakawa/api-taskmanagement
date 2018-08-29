@@ -16,6 +16,7 @@ type taskUserSetHandler struct {
 
 type TaskUserSetHandler interface {
 	GetTaskUserSet(c echo.Context) error
+	CreateTaskUserSet(c echo.Context) error
 }
 
 func NewTaskUserSetHandler(tc controllers.TaskUserSetController) TaskUserSetHandler {
@@ -41,4 +42,31 @@ func (uh *taskUserSetHandler) GetTaskUserSet(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, u)
+}
+
+func (uh *taskUserSetHandler) CreateTaskUserSet(c echo.Context) error {
+	// リクエスト用のEntityを作成
+	req := &model.TaskUserSetRequest{}
+
+	// bind
+	if err := c.Bind(req); err != nil {
+		return c.JSON(http.StatusBadRequest, model.ResponseError{Message: err.Error()})
+	}
+
+	// validate
+	if err := c.Validate(req); err != nil {
+		return c.JSON(http.StatusBadRequest, model.ResponseError{Message: err.Error()})
+	}
+
+	ctx := c.Request().Context()
+	if ctx == nil {
+		ctx = context.Background()
+	}
+
+	err := uh.taskUserSetController.CreateTaskUserSet(req)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, model.ResponseError{Message: err.Error()})
+	}
+
+	return c.JSON(http.StatusCreated, "success")
 }

@@ -11,6 +11,7 @@ type taskUserSetController struct {
 
 type TaskUserSetController interface {
 	GetTaskUserSet(id uint) (*model.TaskUserSetResponse, error)
+	CreateTaskUserSet(tus *model.TaskUserSetRequest) error
 }
 
 func NewTaskUserSetController(ts service.TaskUserSetService) TaskUserSetController {
@@ -24,4 +25,9 @@ func (taskUserSetController *taskUserSetController) GetTaskUserSet(id uint) (*mo
 		return nil, err
 	}
 	return u, nil
+}
+
+func (taskUserSetController *taskUserSetController) CreateTaskUserSet(tus *model.TaskUserSetRequest) error {
+	// 内側の処理のための技術的な関心事を記載
+	return taskUserSetController.taskUserSetService.CreateTaskUserSet(tus)
 }

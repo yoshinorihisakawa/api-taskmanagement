@@ -16,4 +16,5 @@ func NewRouter(e *echo.Echo, handler handler.AppHandler) {
 	// taskUserSet関連
 	//e.POST("/task_user_set", handler.CreateTask)
 	e.GET("/task_user_sets/:id", handler.GetTaskUserSet)
+	e.POST("/task_user_sets", handler.CreateTaskUserSet)
 }
